@@ -13,8 +13,8 @@ public class Matriz {
             for (j=0; j<numeroLinhasColunas; j++) {
                 matrizQuadrada[i][j] = gerador.nextInt(10);
             }
-            System.out.printf("\n");
         }
+        System.out.printf("\n");
         System.out.printf("Matriz gerada aleatóriamente");
         this.imprimir(matrizQuadrada, numeroLinhasColunas);
         return matrizQuadrada;
@@ -70,5 +70,35 @@ public class Matriz {
             }
         }
         this.imprimir(matrizQuadradaDiagonaisInvertidas, numeroLinhasColunas);
+    }
+
+    public int verificarQuantasVezesEncontrada(int[][] matrizQuadradaPrincipal, int numeroLinhasColunasSubmatriz) {
+        int submatrizQuadrada[][] = this.criar(numeroLinhasColunasSubmatriz);
+
+        int count = 0;
+        int sizeA = matrizQuadradaPrincipal.length;
+        int sizeB = submatrizQuadrada.length;
+
+        for (int i = 0; i <= sizeA - sizeB; i++) {
+            for (int j = 0; j <= sizeA - sizeB; j++) {
+                if (this.isSubmatriz(matrizQuadradaPrincipal, submatrizQuadrada, i, j)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private boolean isSubmatriz(int[][] matrizQuadradaPrincipal, int[][] submatrizQuadrada, int inicioLinha, int inicioColuna) {
+        int tamanhoB = submatrizQuadrada.length;
+
+        for (int i = 0; i < tamanhoB; i++) {
+            for (int j = 0; j < tamanhoB; j++) {
+                if (matrizQuadradaPrincipal[inicioLinha + i][inicioColuna + j] != submatrizQuadrada[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
